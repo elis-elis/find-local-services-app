@@ -47,7 +47,7 @@ export default function HomePage() {
             onChange={(e) => setQuestion(e.target.value)}
             className="w-full p-3 border border-gray-300 rounded-md"
             rows={4}
-            placeholder="e.g., Who are the top-rated cat groomers in SF? "
+            placeholder="e.g., Who are the top-rated cat groomers in SF? and what do they charge? How do I book?"
           />
           <button 
             type="submit"
@@ -59,10 +59,15 @@ export default function HomePage() {
         </form>
 
         {response && (
-          <div className="mt-6 max-w-xl bg-white p-4 rounded shadow">
-          <h2 className="font-semibold text-lg mb-2">Response:</h2>
-          <p>{response}</p>
-        </div>
+          <div className="mt-6 max-w-xl w-full bg-gray-50 border border-gray-200 p-6 rounded-2xl shadow-lg">
+            <h2 className="font-semibold text-xl text-blue-800 mb-4 flex items-center gap-2">
+              <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M12 20c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8z" />
+              </svg>
+              Response:
+            </h2>
+            <pre className="whitespace-pre-wrap text-gray-800 font-mono text-sm">{response}</pre>
+          </div>
         )}
       </main>
     </div>
