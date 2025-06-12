@@ -9,7 +9,6 @@ export default function HomePage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!question) return;
     setLoading(true);
     setResponse('');
 
@@ -19,13 +18,17 @@ export default function HomePage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ question }),
       });
-      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
 
       const data = await res.json();
-      setResponse(data.answer);
+      console.log("Response data:", data);
 
+      if (!res.ok) {
+        setResponse(data.error || 'Something went wrong.');
+      } else {
+        setResponse(data.answer);
+      }
     } catch (error) {
-      console.error("Search failed.", error);
+      setResponse('Network or unexpected error.');
     } finally {
       setLoading(false);
     }
