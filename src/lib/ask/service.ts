@@ -1,8 +1,6 @@
 // src/lib/ask/service.ts
 
-// import { QuestionInput } from "./schema";
-
-export function generateAnswer(questoin: string): string {
+export function generateAnswer(question: string): string {
     const sources = [
         'Happy Tails Grooming - $60/session',
         'Purrfect Cuts SF - $55/session + online booking',
