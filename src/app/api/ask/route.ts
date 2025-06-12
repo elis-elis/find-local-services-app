@@ -3,7 +3,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { handleAskQuestion } from "@/lib/ask/controller";
 import { QuestionSchema } from "@/lib/ask/schema";
-import { error } from "console";
 
 export async function POST (req: NextRequest) {
     try{

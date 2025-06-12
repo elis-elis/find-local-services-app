@@ -9,18 +9,26 @@ export default function HomePage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!question) return;
     setLoading(true);
     setResponse('');
 
-    const res = await fetch('/api/ask', {
-      method: "POST",
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ question })
-    })
+    try {
+      const res = await fetch('/api/ask', {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ question }),
+      });
+      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
 
-    const data = await res.json();
-    setResponse(data.answer);
-    setLoading(false);
+      const data = await res.json();
+      setResponse(data.answer);
+
+    } catch (error) {
+      console.error("Search failed.", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
