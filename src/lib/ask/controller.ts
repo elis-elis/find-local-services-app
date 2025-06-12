@@ -3,6 +3,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { QuestionSchema } from "./schema";
 import { generateAnswer } from "./service";
+import { ZodError } from "zod";
 
 export async function askQuestionHandler(req: NextRequest) {
     try{
@@ -15,7 +16,7 @@ export async function askQuestionHandler(req: NextRequest) {
         if (!input.success) {
             console.log("Validation errors:", input.error.errors);
             return NextResponse.json(
-                { error: 'Validation error', details: input.error.errors },
+                { error: 'oh but question must be at least five characters long. try again :)' },
                 { status: 400} 
             );
         }
@@ -26,12 +27,19 @@ export async function askQuestionHandler(req: NextRequest) {
         return NextResponse.json({ answer });
 
     } catch (err) {
-        console.error('Unexpected error in /api/ask:', err);
-        const message =
-        err instanceof Error ? err.message : 'An unexpected issue occurred';
-        return NextResponse.json(
-            { error: 'Internal server error', details: message }, 
+        if (err instanceof ZodError) {
+            return NextResponse.json(
+                { error: 'Invalid input' },
+                { status: 400 }
+            );
+            }
+
+            // fallback for any other unknown errors
+            console.error('Internal error:', err);
+
+            return NextResponse.json(
+            { error: 'Internal server error' },
             { status: 500 }
-        );     
+        ); 
     }
 }
