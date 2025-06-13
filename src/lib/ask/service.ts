@@ -34,3 +34,27 @@ export function generateAnswer(question: string): {
         ],
     };
 }
+
+
+// Replace mock data with real LLM response in production
+
+// import OpenAI from 'openai';
+// const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
+// export async function generateAnswer(question: string): Promise<{ 
+//     summary: string; 
+//     sources: SourceData[] 
+// }> {
+//     const response = await openai.chat.completions.create({
+//         model: 'gpt-4',
+//         messages: [{ role: 'user', content: question }],
+//     });
+
+//     // TODO: parse the LLM response to match the return shape
+//     const parsed = JSON.parse(response.choices[0].message.content || '{}');
+
+//     return {
+//         summary: parsed.summary || '',
+//         sources: parsed.sources || [],
+//     };
+// }

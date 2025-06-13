@@ -7,7 +7,7 @@ import { ZodError } from "zod";
 
 export async function askQuestionHandler(req: NextRequest) {
     try{
-        // Parse the request body
+        // Parse the request JSON body to access the question the user submitted
         const body = await req.json();
         console.log("Received body:", body); // Debug
 
