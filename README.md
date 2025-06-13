@@ -24,6 +24,10 @@ It lets users ask natural-language questions about local services (e.g., cat gro
 - Backend route processes the question and returns a structured answer
 - Mock data simulates real services + AI synthesis
 - Async form submission with loading state
+- Modular backend logic split into `controller`, `service`, and `schema`
+- Zod validation for input safety
+- Ready for future integration with OpenAI or other LLMs (placeholder included)
+
 
 ---
 
@@ -34,3 +38,6 @@ It lets users ask natural-language questions about local services (e.g., cat gro
 ```bash
 git clone https://github.com/elis-elis/find-local-services-app.git
 cd find-local-services-app
+npm install
+npm run dev
+
