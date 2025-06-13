@@ -6,13 +6,13 @@ import { SourceData } from "@/lib/ask/types";
 export default function HomePage() {
   const [question, setQuestion] = useState('');
   const [loading, setLoading] = useState(false);
-  const [response, setResponse] = useState('');
+  const [error, setError] = useState('');
   const [answer, setAnswer] = useState<{ summary: string, sources: SourceData[] } | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setResponse('');
+    setError('');
 
     try {
       const res = await fetch('/api/ask', {
@@ -25,14 +25,15 @@ export default function HomePage() {
       console.log("Response data:", data);
 
       if (!res.ok) {
-        setResponse(data.error || 'Something went wrong.');
+        setError(data.error || 'Something went wrong.');
         setAnswer(null);
       } else {
-        setResponse('');
+        setError('');
         setAnswer(data); // store structured answer
       }
     } catch (error) {
-      setResponse('Network or unexpected error.');
+      setError('Network or unexpected error.');
+      setAnswer(null);
     } finally {
       setLoading(false);
     }
@@ -62,13 +63,19 @@ export default function HomePage() {
           </button>
         </form>
 
+        {error && (
+          <div className="mt-4 text-red-600 text-sm bg-red-50 border border-red-200 p-3 rounded max-w-xl w-full">
+            {error}
+          </div>
+        )}
+
         {answer && (
           <div className="mt-6 max-w-xl w-full bg-gray-50 border border-gray-200 p-6 rounded-2xl shadow-lg">
             <h2 className="font-semibold text-xl text-blue-800 mb-4 flex items-center gap-2">
               <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M12 20c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8z" />
               </svg>
-              Response:
+              Answer:
             </h2>
             <p className="mb-4">{answer.summary}</p>
             <ul className="space-y-4">
