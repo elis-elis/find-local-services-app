@@ -22,9 +22,9 @@ export async function askQuestionHandler(req: NextRequest) {
         }
 
         // Execute business logic
-        const { summary, sources } = generateAnswer(input.data.question);
+        const result = generateAnswer(input.data.question);
 
-        return NextResponse.json({ summary, sources });
+        return NextResponse.json(result);
 
     } catch (err) {
         if (err instanceof ZodError) {

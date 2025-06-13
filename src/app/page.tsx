@@ -1,11 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
+import { SourceData } from "@/lib/ask/types";
 
 export default function HomePage() {
   const [question, setQuestion] = useState('');
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState('');
+  const [answer, setAnswer] = useState<{ summary: string, sources: SourceData[] } | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -67,6 +69,20 @@ export default function HomePage() {
               Response:
             </h2>
             <pre className="whitespace-pre-wrap text-gray-800 font-mono text-sm">{response}</pre>
+            <li key={i} className="border-l-4 border-blue-400 pl-4">
+              <p className="font-semibold">{src.name}</p>
+              <p>{src.price}</p>
+              <p className="text-sm italic text-gray-600">{src.notes}</p>
+              <p className="text-sm font-medium text-green-600">Neptune Score: {src.neptuneScore}/100</p>
+              <a
+                href={src.source}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 text-sm underline"
+              >
+                Visit source
+              </a>
+            </li>
           </div>
         )}
       </main>

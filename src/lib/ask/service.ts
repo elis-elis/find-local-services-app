@@ -1,12 +1,6 @@
 // src/lib/ask/service.ts
 
-type SourceData= {
-    name: string;
-    price: string;
-    notes: string;
-    source: string; // pretend "URL" or source name
-    neptuneScore: number; // 0-100
-};
+import type { SourceData } from "./types";
 
 export function generateAnswer(question: string): { 
     summary: string; 
