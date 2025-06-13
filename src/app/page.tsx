@@ -26,8 +26,10 @@ export default function HomePage() {
 
       if (!res.ok) {
         setResponse(data.error || 'Something went wrong.');
+        setAnswer(null);
       } else {
-        setResponse(data.answer);
+        setResponse('');
+        setAnswer(data); // store structured answer
       }
     } catch (error) {
       setResponse('Network or unexpected error.');
@@ -60,7 +62,7 @@ export default function HomePage() {
           </button>
         </form>
 
-        {response && (
+        {answer && (
           <div className="mt-6 max-w-xl w-full bg-gray-50 border border-gray-200 p-6 rounded-2xl shadow-lg">
             <h2 className="font-semibold text-xl text-blue-800 mb-4 flex items-center gap-2">
               <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -68,21 +70,25 @@ export default function HomePage() {
               </svg>
               Response:
             </h2>
-            <pre className="whitespace-pre-wrap text-gray-800 font-mono text-sm">{response}</pre>
-            <li key={i} className="border-l-4 border-blue-400 pl-4">
-              <p className="font-semibold">{src.name}</p>
-              <p>{src.price}</p>
-              <p className="text-sm italic text-gray-600">{src.notes}</p>
-              <p className="text-sm font-medium text-green-600">Neptune Score: {src.neptuneScore}/100</p>
-              <a
-                href={src.source}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 text-sm underline"
-              >
-                Visit source
-              </a>
-            </li>
+            <p className="mb-4">{answer.summary}</p>
+            <ul className="space-y-4">
+              {answer.sources.map((src, i) => (
+                <li key={i} className="border-l-4 border-blue-400 pl-4">
+                  <p className="font-semibold">{src.name}</p>
+                  <p>{src.price}</p>
+                  <p className="text-sm italic text-gray-600">{src.notes}</p>
+                  <p className="text-sm font-medium text-green-600">Neptune Score: {src.neptuneScore}/100</p>
+                  <a
+                    href={src.source}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 text-sm underline"
+                  >
+                    Visit source
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
         )}
       </main>
