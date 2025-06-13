@@ -1,6 +1,7 @@
 // src/lib/ask/service.ts
 
 import type { SourceData } from "./types";
+import { calculateNeptuneScore } from './neptuneScore';
 
 export function generateAnswer(question: string): { 
     summary: string; 
@@ -14,7 +15,7 @@ export function generateAnswer(question: string): {
             price: "$60/session",
             notes: "Basic grooming for cats",
             source: "https://happytails.com",
-            neptuneScore: 78, // Decent price, basic service
+            neptuneScore: calculateNeptuneScore("$60/session", "Basic grooming for cats"),
 
         },
         {
@@ -22,14 +23,14 @@ export function generateAnswer(question: string): {
             price: "$55/session",
             notes: "Online booking available",
             source: "https://www.maxwellspetbar.com/",
-            neptuneScore: 85, // Affordable + online booking = higher score
+            neptuneScore: calculateNeptuneScore("$55/session", "Online booking available"),
         },
         {
             name: "Alpha Grooming Pet Salon",
             price: "$70/session",
             notes: "Luxury cat spa services",
             source: "https://www.alphagroomingpetsalon.com/san-francisco-county/",
-            neptuneScore: 72, // Higher cost lowers score despite luxury
+            neptuneScore: calculateNeptuneScore("$70/session", "Luxury cat spa services"),
         },
         ],
     };
