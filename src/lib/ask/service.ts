@@ -8,8 +8,13 @@ type SourceData= {
     neptuneScore: number; // 0-100
 };
 
-export function generateAnswer(question: string): { summary: string; sources: SourceData[] } {
-    const sources: SourceData[] = [
+export function generateAnswer(question: string): { 
+    summary: string; 
+    sources: SourceData[] 
+} {
+    return {
+        summary: "Here are top-rated cat groomers in San Francisco, along with a Neptune Score based on price, convenience, and service quality.",
+        sources: [
         {
             name: "San Francisco Pet Grooming",
             price: "$60/session",
@@ -31,10 +36,7 @@ export function generateAnswer(question: string): { summary: string; sources: So
             notes: "Luxury cat spa services",
             source: "https://www.alphagroomingpetsalon.com/san-francisco-county/",
             neptuneScore: 72, // Higher cost lowers score despite luxury
-        }
-    ];
-
-    const summary = "Here’s a summary of top-rated cat groomers in San Francisco, along with a Neptune Score based on price, convenience, and service quality.";
-
-    return { summary, sources };
+        },
+        ],
+    };
 }
